@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', App\Http\Controllers\Task\StoreController::class);
     Route::put('/tasks/{task}', App\Http\Controllers\Task\UpdateController::class);
     Route::delete('/tasks/{task}', App\Http\Controllers\Task\DeleteController::class);
+
+    Route::post('/auth/logout', App\Http\Controllers\Auth\LogoutController::class);
 });
 
 
