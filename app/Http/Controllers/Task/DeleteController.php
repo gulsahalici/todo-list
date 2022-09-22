@@ -18,12 +18,12 @@ class DeleteController extends Controller
     {
         if(!$taskManager->delete($task)) {
             return response()->json([         
-                'message' => __('Failed to delete task.')
+                'message' => 'Failed to delete task.'
             ]);
         }
        
         return response()->json([         
-            'message' => __('Task deleted.')
+            'message' => 'Task deleted.'
         ]);
     }
 }

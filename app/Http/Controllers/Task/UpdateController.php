@@ -21,7 +21,7 @@ class UpdateController extends Controller
         $task = $taskManager->update($task, $request->validated());
 
         return response()->json([         
-            'message' => __('Task updated.'),
+            'message' => 'Task updated.',
             'task' => new TaskResource($task)
         ]);
     }

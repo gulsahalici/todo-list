@@ -20,7 +20,7 @@ class StoreController extends Controller
         $task = $taskManager->create($request->validated());
 
         return response()->json([         
-            'message' => __('Task created.'),
+            'message' => 'Task created.',
             'task' => new TaskResource($task)
         ]);
     }
