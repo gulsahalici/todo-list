@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Task;
+namespace App\Http\Controllers\Api\Task;
 
 use App\Business\TaskManager;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Task\UpdateRequest as TaskUpdateRequest;
+use App\Http\Requests\Task\StoreRequest as TaskStoreRequest;
 use App\Http\Resources\TaskResource;
-use App\Models\Task;
 
-class UpdateController extends Controller
+class StoreController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,12 +15,12 @@ class UpdateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(TaskUpdateRequest $request, Task $task, TaskManager $taskManager)
+    public function __invoke(TaskStoreRequest $request, TaskManager $taskManager)
     {
-        $task = $taskManager->update($task, $request->validated());
+        $task = $taskManager->create($request->validated());
 
         return response()->json([         
-            'message' => 'Task updated.',
+            'message' => 'Task created.',
             'task' => new TaskResource($task)
         ]);
     }

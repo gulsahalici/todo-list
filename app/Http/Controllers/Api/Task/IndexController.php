@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Task;
+namespace App\Http\Controllers\Api\Task;
 
 use App\Business\TaskManager;
 use App\Http\Controllers\Controller;

@@ -19,14 +19,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/tasks', App\Http\Controllers\Task\IndexController::class);
-    Route::post('/tasks', App\Http\Controllers\Task\StoreController::class);
-    Route::put('/tasks/{task}', App\Http\Controllers\Task\UpdateController::class);
-    Route::delete('/tasks/{task}', App\Http\Controllers\Task\DeleteController::class);
+    Route::get('/tasks', App\Http\Controllers\Api\Task\IndexController::class);
+    Route::post('/tasks', App\Http\Controllers\Api\Task\StoreController::class);
+    Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
+    Route::delete('/tasks/{task}', App\Http\Controllers\Api\Task\DeleteController::class);
 
-    Route::post('/auth/logout', App\Http\Controllers\Auth\LogoutController::class);
+    Route::post('/auth/logout', App\Http\Controllers\Api\Auth\LogoutController::class);
 });
 
 
-Route::post('/auth/register', App\Http\Controllers\Auth\RegisterController ::class);
-Route::post('/auth/login', App\Http\Controllers\Auth\LoginController::class);
+Route::post('/auth/register', App\Http\Controllers\Api\Auth\RegisterController ::class);
+Route::post('/auth/login', App\Http\Controllers\Api\Auth\LoginController::class);

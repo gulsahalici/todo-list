@@ -14,11 +14,11 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
+import LoginForm from './components/auth/LoginForm'
+Vue.component('login-form', LoginForm)
 
-import App from './components/App'
 
 const app = new Vue({
-    el: '#app',
-    components: { App }
+    el: '#app'
 })
 
