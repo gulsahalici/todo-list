@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', App\Http\Controllers\Web\Auth\LoginController::class);
+Route::get('/login', App\Http\Controllers\Web\Auth\LoginController::class)->name('login')->middleware('guest');
+Route::get('/', App\Http\Controllers\Web\DashboardController::class)->middleware('auth:sanctum');

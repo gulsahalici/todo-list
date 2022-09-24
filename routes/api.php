@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tasks', App\Http\Controllers\Api\Task\IndexController::class);
@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
     Route::delete('/tasks/{task}', App\Http\Controllers\Api\Task\DeleteController::class);
 
-    Route::post('/auth/logout', App\Http\Controllers\Api\Auth\LogoutController::class);
+    Route::post('/auth/logout', App\Http\Controllers\Api\Auth\LogoutController::class)->name('logout');
 });
 
 

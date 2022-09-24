@@ -22,12 +22,13 @@ class LoginController extends Controller
         if(!$user) {
             return response()->json([         
                 'message' => 'Email or password incorrect.'
-            ]);
+            ], 422);
         }
 
         return response()->json([         
             'message' => 'User logged in.',
             'token' => $user->createToken("API TOKEN")->plainTextToken
-        ]);
+        ], 200);
+
     }
 }
