@@ -1,5 +1,5 @@
 @extends('layouts.default')
 
 @section("content")
-    <login-form></login-form>
+    <register-form></register-form>
 @endsection

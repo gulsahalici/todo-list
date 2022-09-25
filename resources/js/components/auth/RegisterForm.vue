@@ -7,8 +7,12 @@
     </b-row>
     <b-row class="mt-3">
         <b-col cols="6" offset="3">
-            <b-card class="mt-3" header="Login">
-                <b-form @submit.stop.prevent="login">
+            <b-card class="mt-3" header="Register">
+                <b-form @submit.stop.prevent="register">
+                    <b-form-group id="name-group" label="Name" label-for="name">
+                        <b-form-input id="name" v-model="form.name" placeholder="Enter name" required></b-form-input>
+                    </b-form-group>
+
                     <b-form-group id="email-group" label="Email" label-for="email">
                         <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email" required></b-form-input>
                     </b-form-group>
@@ -17,7 +21,7 @@
                         <b-form-input id="password" type="password" v-model="form.password"  required></b-form-input>
                     </b-form-group>
 
-                    <b-button type="submit" variant="primary" block>Login</b-button>
+                    <b-button type="submit" variant="primary" block>Register</b-button>
                 </b-form>
             </b-card>
         </b-col>
@@ -25,7 +29,7 @@
     <b-row class="mt-1">
         <b-col cols="6" offset="3">
             <b-card class="text-center">
-              Don't have an account?<b-button href="/register" variant="link">Register</b-button>
+                Have an account? <b-button href="/login" variant="link">Login</b-button>
             </b-card>
         </b-col>
     </b-row>
@@ -33,7 +37,7 @@
 </template>
 
 <script>
-import { loginUser } from '../../auth'
+import { registerUser } from '../../auth'
 
 export default {
     data() {
@@ -42,21 +46,16 @@ export default {
         }
     },
     methods: {
-        async login() {
+        async register() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
-                loginUser(this.form).then((resp) => {
+                registerUser(this.form).then((resp) => {
+                    //console.log(resp)
                     window.location = '/'
                 })
                 .catch((error) => {
                     console.log(error)
                 })
             });
-            // await loginUser(this.form).then((response) => {
-            //     window.location = '/'
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
         }
     }
 

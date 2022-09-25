@@ -6,7 +6,14 @@ function loginUser(payload) {
     })
 }
 
+function registerUser(payload) {
+    return axios({
+        method: 'post',
+        url: '/api/auth/register',
+        data: payload
+    })
+}
 
 export {
-    loginUser
+    loginUser, registerUser
 }

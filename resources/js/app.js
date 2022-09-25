@@ -17,6 +17,9 @@ Vue.use(IconsPlugin)
 import LoginForm from './components/auth/LoginForm'
 Vue.component('login-form', LoginForm)
 
+import RegisterForm from './components/auth/RegisterForm'
+Vue.component('register-form', RegisterForm)
+
 
 const app = new Vue({
     el: '#app'
