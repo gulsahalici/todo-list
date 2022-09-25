@@ -49,7 +49,6 @@ export default {
         async register() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 registerUser(this.form).then((resp) => {
-                    //console.log(resp)
                     window.location = '/'
                 })
                 .catch((error) => {

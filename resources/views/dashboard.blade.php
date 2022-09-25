@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section("content")
-    homeee {{$user}}
+    <task-list></task-list>
 @endsection
