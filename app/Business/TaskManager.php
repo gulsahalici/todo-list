@@ -8,7 +8,7 @@ class TaskManager
 {
     public function getList()
     {
-        return Task::all();
+        return Task::with('user')->get();
     }
 
     public function create(array $data)

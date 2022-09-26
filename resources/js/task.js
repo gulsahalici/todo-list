@@ -5,7 +5,14 @@ function fetchTasks(payload) {
     })
 }
 
+function storeTask(data) {
+    return axios({
+        method: 'post',
+        url: '/api/tasks',
+        data
+    })
+}
 
 export {
-    fetchTasks
+    fetchTasks, storeTask
 }

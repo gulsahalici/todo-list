@@ -20,8 +20,14 @@ Vue.component('login-form', LoginForm)
 import RegisterForm from './components/auth/RegisterForm'
 Vue.component('register-form', RegisterForm)
 
+import Tasks from './components/task/Index'
+Vue.component('tasks', Tasks)
+
 import TaskList from './components/task/List'
 Vue.component('task-list', TaskList)
+
+import TaskForm from './components/task/Form'
+Vue.component('task-form', TaskForm)
 
 
 const app = new Vue({

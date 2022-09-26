@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', App\Http\Controllers\Api\User\IndexController::class);
+
     Route::get('/tasks', App\Http\Controllers\Api\Task\IndexController::class);
     Route::post('/tasks', App\Http\Controllers\Api\Task\StoreController::class);
     Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
