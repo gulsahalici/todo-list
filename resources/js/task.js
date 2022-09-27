@@ -13,6 +13,22 @@ function storeTask(data) {
     })
 }
 
+function updateTask(data) {
+    console.log("--", data)
+    return axios({
+        method: 'put',
+        url: '/api/tasks/' + data?.id,
+        data
+    })
+}
+
+function deleteTask(data) {
+    return axios({
+        method: 'delete',
+        url: '/api/tasks/' + data?.id
+    })
+}
+
 export {
-    fetchTasks, storeTask
+    fetchTasks, storeTask, updateTask, deleteTask
 }

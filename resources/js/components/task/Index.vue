@@ -1,8 +1,7 @@
 <template>
   <b-container>
-    <h4 class="text-center">Task List</h4>
-    <task-form class="my-2" @updated="listKey++"></task-form>
-    <task-list class="my-2" :key="listKey"></task-list>
+    <task-form class="my-2" :key="formKey" @updated="listKey++" :task="task"></task-form>
+    <task-list class="my-2" :key="listKey" @editTask="editTask"></task-list>
   </b-container>
 </template>
 
@@ -10,8 +9,16 @@
 export default {
     data() {
         return {
-            listKey: 0
+          listKey: 0,
+          formKey: -1,
+          task: {}
         }
+    },
+    methods: {
+      editTask(data) {
+        this.task = data
+        this.formKey--
+      }
     }
 }
 </script>
