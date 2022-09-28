@@ -24,7 +24,9 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => ['nullable', 'integer'],
+            'description' => ['nullable', 'string'],
+            'done' => ['nullable', 'integer', 'between:0,1']
         ];
     }
 }

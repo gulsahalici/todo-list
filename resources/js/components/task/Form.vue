@@ -33,16 +33,14 @@
 </template>
 
 <script>
-import { fetchUsers } from '../../user'
 import { storeTask, updateTask } from '../../task'
 
 export default {
-    props: ['task'],
+    props: ['task', 'users'],
     data() {
         return {
             form: {},
-            selected: null,
-            users: []
+            selected: null
         }
     },
     methods: {
@@ -64,20 +62,6 @@ export default {
         }
     },
     mounted() {
-      axios.get('/sanctum/csrf-cookie').then(response => { 
-            fetchUsers().then((resp) => {
-                this.users = resp?.data?.map((user) => {
-                    return {
-                        value: user.id,
-                        text: user.name
-                    }
-                })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
-
         if(this.task) {
             this.form = this.task
         }

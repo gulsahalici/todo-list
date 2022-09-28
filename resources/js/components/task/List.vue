@@ -1,7 +1,26 @@
 <template>
   <b-container>
+    <b-row class="border pt-3 rounded">
+        <b-col cols="6">
+            <b-form-input v-model="filter.description" id="description" placeholder="Description"></b-form-input>
+        </b-col>
+        <b-col cols="3">
+            <b-form-group id="user">
+                <b-form-select v-model="filter.user_id" :options="users"></b-form-select>
+            </b-form-group>
+        </b-col>
+        <b-col cols="2">
+            <b-form-group id="status">
+                <b-form-select v-model="filter.done" :options="status"></b-form-select>
+            </b-form-group>
+        </b-col>
+        <b-col>
+            <b-icon icon="search" class="cursor mr-3 mt-2" @click="filterTasks"></b-icon>
+            <b-icon icon="trash-fill" variant="danger" class="cursor" @click="filter = {}, goPage(1)"></b-icon>
+        </b-col>
+    </b-row>
     <b-row>
-        <b-col cols="6" offset="3" class="border p-5 rounded">
+        <b-col class="border p-5 rounded">
             <b-row v-for="task in tasks" :key="task.id" class="py-3 border-bottom">
                 <b-col>
                     <b-form-checkbox :id="'task_' + task.id" v-model="task.done" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
@@ -56,13 +75,23 @@
 import { fetchTasks, deleteTask, updateTask } from '../../task'
 
 export default {
-    props: ['updated'],
+    props: ['updated', 'users'],
     data() {
         return{
             tasks: [],
-            doneTasks: [],
             editingTask: {},
-            pagination: {}
+            pagination: {},
+            status: [
+                {
+                    text: 'Done',
+                    value: 1
+                },
+                {
+                    text: 'Not done',
+                    value: 0
+                }
+            ],
+            filter: {}
         }
     },
     watch: {
@@ -97,6 +126,17 @@ export default {
         goPage(page) {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 fetchTasks({page}).then((resp) => {
+                    this.tasks = resp?.data?.tasks
+                    this.pagination = resp?.data?.pagination
+                })
+            })
+        },
+        filterTasks() {
+            axios.get('/sanctum/csrf-cookie').then(response => { 
+                fetchTasks({
+                    page: this.pagination.current_page,
+                    filter: this.filter
+                }).then((resp) => {
                     this.tasks = resp?.data?.tasks
                     this.pagination = resp?.data?.pagination
                 })

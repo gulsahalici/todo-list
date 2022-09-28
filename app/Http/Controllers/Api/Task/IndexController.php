@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Task;
 
 use App\Business\TaskManager;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Task\IndexRequest as TaskIndexRequest;
 use App\Http\Resources\TaskResource;
 use App\Traits\HasPagination;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -17,9 +17,9 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, TaskManager $taskManager)
+    public function __invoke(TaskIndexRequest $request, TaskManager $taskManager)
     {
-        $tasks = $taskManager->getList();
+        $tasks = $taskManager->getList($request->validated());
         
         return response()->json([ 
             'tasks' => TaskResource::collection($tasks),
