@@ -20,7 +20,8 @@ class TaskResource extends JsonResource
             "description" => $this->description,
             "done" => $this->done,
             "created_at" => $this->created_at->format('Y-m-d H:i:s'),
-            "updated_at" => $this->updated_at->format('Y-m-d H:i:s')
+            "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
+            "user" => $this->user
         ];
     }
 }

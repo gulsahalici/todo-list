@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <task-form class="my-2" :key="formKey" @updated="listKey++" :task="task"></task-form>
-    <task-list class="my-2" :key="listKey" @editTask="editTask"></task-list>
+    <task-list class="my-2" :updated="listKey" @editTask="editTask"></task-list>
   </b-container>
 </template>
 

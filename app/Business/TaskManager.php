@@ -8,7 +8,7 @@ class TaskManager
 {
     public function getList()
     {
-        return Task::with('user')->get();
+        return Task::with('user')->paginate(10);
     }
 
     public function create(array $data)

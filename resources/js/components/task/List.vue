@@ -23,6 +23,22 @@
                     <b-icon icon="trash-fill" variant="danger" class="cursor" v-b-modal="'confirm-modal'" @click="editingTask = task"></b-icon>
                 </b-col>
             </b-row>
+            <b-row>
+                <b-col>
+                    <b-pagination
+                        v-model="pagination.current_page"
+                        :total-rows="pagination.total"
+                        :per-page="pagination.per_page"
+                        first-text="⏮"
+                        prev-text="⏪"
+                        next-text="⏩"
+                        last-text="⏭"
+                        class="mt-4"
+                        align="center"
+                        @change="goPage"
+                    ></b-pagination>
+                </b-col>
+            </b-row>
         </b-col>
     </b-row>
     <b-modal id="confirm-modal" ref="confirm-modal" hide-footer>
@@ -40,11 +56,18 @@
 import { fetchTasks, deleteTask, updateTask } from '../../task'
 
 export default {
+    props: ['updated'],
     data() {
         return{
             tasks: [],
             doneTasks: [],
-            editingTask: {}
+            editingTask: {},
+            pagination: {}
+        }
+    },
+    watch: {
+        updated(val) {
+            this.goPage(this.pagination.current_page)
         }
     },
     methods: {
@@ -58,9 +81,9 @@ export default {
         removeTask() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 deleteTask(this.editingTask).then((resp) => {
-                    this.tasks.splice(this.tasks.indexOf(this.editingTask), 1)
                     this.editingTask = {}
                     this.hideModal()
+                    this.goPage(this.pagination.current_page)
                 })
             })
         },
@@ -70,23 +93,18 @@ export default {
                     console.log(resp)
                 })
             })
+        },
+        goPage(page) {
+            axios.get('/sanctum/csrf-cookie').then(response => { 
+                fetchTasks({page}).then((resp) => {
+                    this.tasks = resp?.data?.tasks
+                    this.pagination = resp?.data?.pagination
+                })
+            })
         }
     },
     mounted() {
-        axios.get('/sanctum/csrf-cookie').then(response => { 
-            fetchTasks().then((resp) => {
-                this.tasks = resp?.data?.map((task) => {
-                    if(task.done == 1) {
-                        this.doneTasks.push(task.id)
-                    }
-
-                    return task
-                })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
+        this.goPage(1)
     }
 }
 </script>

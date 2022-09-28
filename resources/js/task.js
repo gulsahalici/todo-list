@@ -1,7 +1,10 @@
 function fetchTasks(payload) {
     return axios({
         method: 'get',
-        url: '/api/tasks'
+        url: '/api/tasks',
+        params: {
+            page: payload?.page
+        }
     })
 }
 
