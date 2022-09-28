@@ -123,9 +123,7 @@ export default {
         },
         changeTaskStatus(val) {
             axios.get('/sanctum/csrf-cookie').then(response => { 
-                updateTask(this.editingTask).then((resp) => {
-                    console.log(resp)
-                })
+                updateTask(this.editingTask)
             })
         },
         goPage(page) {

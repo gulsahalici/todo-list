@@ -31,7 +31,6 @@ function storeTask(data) {
 }
 
 function updateTask(data) {
-    console.log("--", data)
     return axios({
         method: 'put',
         url: '/api/tasks/' + data?.id,

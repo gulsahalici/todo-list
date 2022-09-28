@@ -51,9 +51,6 @@ export default {
                 registerUser(this.form).then((resp) => {
                     window.location = '/'
                 })
-                .catch((error) => {
-                    console.log(error)
-                })
             });
         }
     }

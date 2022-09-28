@@ -47,16 +47,7 @@ export default {
                 loginUser(this.form).then((resp) => {
                     window.location = '/'
                 })
-                .catch((error) => {
-                    console.log(error)
-                })
-            });
-            // await loginUser(this.form).then((response) => {
-            //     window.location = '/'
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
+            })
         }
     }
 
