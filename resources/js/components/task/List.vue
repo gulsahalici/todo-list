@@ -20,7 +20,7 @@
         </b-col>
     </b-row>
     <b-row>
-        <b-col class="border p-5 rounded">
+        <b-col class="border p-5 rounded" v-if="tasks && tasks.length > 0">
             <b-row v-for="task in tasks" :key="task.id" class="py-3 border-bottom">
                 <b-col>
                     <b-form-checkbox :id="'task_' + task.id" v-model="task.done" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
@@ -32,7 +32,7 @@
                         </span>
                     </b-form-checkbox>
                 </b-col>
-                <b-col>
+                <b-col cols="2">
                     <b-avatar :size="24"></b-avatar>
                     <b-badge>{{task.user.name}}</b-badge>
                 </b-col>
@@ -58,6 +58,11 @@
                     ></b-pagination>
                 </b-col>
             </b-row>
+        </b-col>
+        <b-col class="border p-5 rounded" v-else>
+            <b-alert show>
+                There is no task.
+            </b-alert>
         </b-col>
     </b-row>
     <b-modal id="confirm-modal" ref="confirm-modal" hide-footer>
