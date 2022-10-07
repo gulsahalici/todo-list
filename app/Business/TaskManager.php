@@ -22,7 +22,7 @@ class TaskManager
             $query->where('done', $data['done']);
         }
 
-        return $query->paginate(10);
+        return $query->orderBy('created_at', 'desc')->paginate(10);
     }
 
     public function create(array $data)

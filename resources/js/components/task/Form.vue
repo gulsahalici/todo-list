@@ -1,13 +1,7 @@
 <template>
     <b-container>
         <b-row>
-            <b-col cols="6" offset="3" class="border py-3 px-5 rounded">
-                <b-button v-if="form.id" @click="form={}" variant="primary" class="float-right" size="sm">
-                    <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>New Task
-                </b-button>
-                <h6 class="text-center" v-if="form.id">Edit Task</h6>
-                <h6 class="text-center" v-else>New Task</h6>
-                <br>
+            <b-col>
                 <b-form @submit.stop.prevent="createTask">
                     <b-form-group id="description" label="Description" label-for="description">
                         <b-form-input id="description" v-model="form.description" placeholder="Enter description" required></b-form-input>
@@ -47,23 +41,43 @@ export default {
         createTask() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 if(this.form.id) {
-                    updateTask(this.form).then((resp) => {
-                        this.$emit('updated')   
-                        this.form = {}
-                    })
+                    updateTask(this.form)
+                        .then((resp) => {
+                            this.$emit('updated')   
+                            this.form = {}
+                            
+                            this.$toast.success(resp.data.message, {
+                                timeout: 5000
+                            })
+                        })
+                        .catch((err) => {
+                            this.$toast.error(err.response.data.message, {
+                                timeout: 5000
+                            })
+                        })
                 }
                 else {
-                    storeTask(this.form).then((resp) => {
-                        this.$emit('updated')   
-                        this.form = {}
-                    })
+                    storeTask(this.form)
+                        .then((resp) => {
+                            this.$emit('updated')   
+                            this.form = {}
+
+                            this.$toast.success(resp.data.message, {
+                                timeout: 5000
+                            })
+                        })
+                        .catch((err) => {
+                            this.$toast.error(err.response.data.message, {
+                                timeout: 5000
+                            })
+                        })
                 }
             })
         }
     },
     mounted() {
         if(this.task) {
-            this.form = this.task
+            this.form = JSON.parse(JSON.stringify(this.task)) 
         }
     }
 }
