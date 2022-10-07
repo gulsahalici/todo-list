@@ -44,9 +44,15 @@ export default {
     methods: {
         async login() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
-                loginUser(this.form).then((resp) => {
-                    window.location = '/'
-                })
+                loginUser(this.form)
+                    .then((resp) => {
+                        window.location = '/'
+                    })
+                    .catch((err) => {
+                        this.$toast.error(err.response.data.message, {
+                            timeout: 5000
+                        })
+                    })
             })
         }
     }

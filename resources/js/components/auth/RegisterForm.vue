@@ -47,11 +47,18 @@ export default {
     },
     methods: {
         async register() {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                registerUser(this.form).then((resp) => {
-                    window.location = '/'
+            axios.get('/sanctum/csrf-cookie')
+                .then(response => { 
+                    registerUser(this.form)
+                        .then((resp) => {
+                            window.location = '/'
+                        })
+                        .catch((err) => {
+                            this.$toast.error(err.response.data.message, {
+                                timeout: 5000
+                            })
+                        })
                 })
-            });
         }
     }
 
