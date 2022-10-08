@@ -18,8 +18,8 @@ class TaskManager
             $query->where('user_id', $data['user_id']);
         }
 
-        if(isset($data['done'])) {
-            $query->where('done', $data['done']);
+        if(isset($data['status'])) {
+            $query->where('status', $data['status']);
         }
 
         return $query->orderBy('created_at', 'desc')->paginate(10);

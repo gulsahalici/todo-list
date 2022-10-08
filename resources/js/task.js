@@ -11,8 +11,8 @@ function fetchTasks(payload) {
         params.user_id = payload.filter.user_id
     }
 
-    if (payload?.filter?.done != undefined) {
-        params.done = payload.filter.done
+    if (payload?.filter?.status != undefined) {
+        params.status = payload.filter.status
     }
 
     return axios({

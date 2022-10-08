@@ -26,7 +26,7 @@ class IndexRequest extends FormRequest
         return [
             'user_id' => ['nullable', 'integer'],
             'description' => ['nullable', 'string'],
-            'done' => ['nullable', 'integer', 'between:0,1']
+            'status' => ['nullable', 'integer', 'between:0,1']
         ];
     }
 }

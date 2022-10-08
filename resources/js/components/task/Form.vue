@@ -4,7 +4,7 @@
             <b-col>
                 <b-form @submit.stop.prevent="createTask">
                     <b-form-group id="description" label="Description" label-for="description">
-                        <b-form-input id="description" v-model="form.description" placeholder="Enter description" required></b-form-input>
+                        <b-form-textarea id="description" v-model="form.description" placeholder="Enter description" required rows="3" max-rows="10"></b-form-textarea>
                     </b-form-group>
 
                     <b-form-group id="user" label="User" label-for="user">

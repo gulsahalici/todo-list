@@ -11,7 +11,7 @@
         </b-col>
         <b-col cols="2">
             <b-form-group id="status">
-                <b-form-select v-model="filter.done" :options="status"></b-form-select>
+                <b-form-select v-model="filter.status" :options="status"></b-form-select>
             </b-form-group>
         </b-col>
         <b-col>
@@ -23,8 +23,8 @@
         <b-col class="border p-5 rounded" v-if="tasks && tasks.length > 0">
             <b-row v-for="task in tasks" :key="task.id" class="py-3 border-bottom">
                 <b-col>
-                    <b-form-checkbox :id="'task_' + task.id" v-model="task.done" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
-                        <del v-if="task.done" class="text-secondary">
+                    <b-form-checkbox :id="'task_' + task.id" v-model="task.status" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
+                        <del v-if="task.status" class="text-secondary">
                             {{task.description}}
                         </del>
                         <span v-else>
