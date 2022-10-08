@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'user_id' => ['nullable', 'integer'],
             'description' => ['required', 'string', 'min:2'],
-            'done' => ['nullable']
+            'status' => ['nullable', 'integer', 'between:0,1']
         ];
     }
 }

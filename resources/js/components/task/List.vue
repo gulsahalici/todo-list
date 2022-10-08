@@ -11,7 +11,7 @@
         </b-col>
         <b-col cols="2">
             <b-form-group id="status">
-                <b-form-select v-model="filter.done" :options="status"></b-form-select>
+                <b-form-select v-model="filter.status" :options="status"></b-form-select>
             </b-form-group>
         </b-col>
         <b-col>
@@ -23,8 +23,8 @@
         <b-col class="border p-5 rounded" v-if="tasks && tasks.length > 0">
             <b-row v-for="task in tasks" :key="task.id" class="py-3 border-bottom">
                 <b-col>
-                    <b-form-checkbox :id="'task_' + task.id" v-model="task.done" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
-                        <del v-if="task.done" class="text-secondary">
+                    <b-form-checkbox :id="'task_' + task.id" v-model="task.status" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
+                        <del v-if="task.status" class="text-secondary">
                             {{task.description}}
                         </del>
                         <span v-else>
@@ -65,7 +65,7 @@
             </b-alert>
         </b-col>
     </b-row>
-    <b-modal id="confirm-modal" ref="confirm-modal" hide-footer>
+    <b-modal id="confirm-modal" ref="confirm-modal" title="Remove Task" hide-footer>
         Are you sure want to remove this task?
         <br>
         <small>- {{editingTask.description}} </small>
@@ -117,27 +117,49 @@ export default {
                 deleteTask(this.editingTask).then((resp) => {
                     this.editingTask = {}
                     this.hideModal()
+                    this.$toast.success(resp.data.message, {
+                        timeout: 5000
+                    })
                     this.goPage(this.pagination.current_page)
+                })
+                .catch((err) => {
+                    this.$toast.error(err.response.data.message, {
+                        timeout: 5000
+                    })
                 })
             })
         },
         changeTaskStatus(val) {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 updateTask(this.editingTask)
+                    .then((resp) => {
+                        this.$toast.success(resp.data.message, {
+                            timeout: 5000
+                        })
+                    })
+                    .catch((err) => {
+                        this.$toast.error(err.response.data.message, {
+                            timeout: 5000
+                        })
+                    })
             })
         },
         goPage(page) {
             axios.get('/sanctum/csrf-cookie').then(response => { 
-                fetchTasks({page}).then((resp) => {
-                    this.tasks = resp?.data?.tasks
-                    this.pagination = resp?.data?.pagination
-                })
+                fetchTasks({
+                    page: page,
+                    filter: this.filter
+                    })
+                    .then((resp) => {
+                        this.tasks = resp?.data?.tasks
+                        this.pagination = resp?.data?.pagination
+                    })
             })
         },
         filterTasks() {
             axios.get('/sanctum/csrf-cookie').then(response => { 
                 fetchTasks({
-                    page: this.pagination.current_page,
+                    page: 1,
                     filter: this.filter
                 }).then((resp) => {
                     this.tasks = resp?.data?.tasks
