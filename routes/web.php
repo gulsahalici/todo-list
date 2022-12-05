@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/hello-inertia', function() {
+    return Inertia::render('Welcome', [
+        'name' => 'Gülşah'
+    ]);
+});
+
+Route::get('/settings', function() {
+    sleep(2);
+    return Inertia::render('Settings');
+});
+
+Route::get('/users', function() {
+    return Inertia::render('Users');
+});
 
 Route::get('/login', App\Http\Controllers\Web\Auth\LoginController::class)->name('login')->middleware('guest');
 Route::get('/register', App\Http\Controllers\Web\Auth\RegisterController::class)->name('register')->middleware('guest');

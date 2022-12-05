@@ -1,14 +1,31 @@
 import './bootstrap';
 
 import Vue from 'vue'
-
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue'
+import { InertiaProgress } from '@inertiajs/progress'
+
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+createInertiaApp({
+    resolve: name => require(`./Pages/${name}`),
+    setup({ el, App, props, plugin }) {
+      Vue.use(plugin)
+  
+      new Vue({
+        render: h => h(App, props),
+      }).$mount(el)
+    },
+  })
 
+InertiaProgress.init({
+    color: 'red',
+    showSpinner: true
+})
+/*
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
@@ -42,3 +59,4 @@ const app = new Vue({
     el: '#app'
 })
 
+*/
