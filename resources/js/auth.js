@@ -14,6 +14,13 @@ function registerUser(payload) {
     })
 }
 
+function logoutUser() {
+    return axios({
+        method: 'post',
+        url: '/api/auth/logout'
+    })
+}
+
 export {
-    loginUser, registerUser
+    loginUser, registerUser, logoutUser
 }

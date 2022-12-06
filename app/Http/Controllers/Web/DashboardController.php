@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -17,6 +18,8 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        return view('dashboard', compact('user'));
+        return Inertia::render('Home', [
+            'user' => $user
+        ]);
     }
 }
