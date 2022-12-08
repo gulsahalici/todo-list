@@ -1,33 +1,30 @@
 import './bootstrap';
 
 import Vue from 'vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
 import { createInertiaApp } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
 
-
-// Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import Toast from "vue-toastification"
 import "vue-toastification/dist/index.css"
+
+import TaskList from './components/task/List'
+import TaskForm from './components/task/Form'
 
 const options = {
     // You can set your default options here
 }
 
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
 Vue.use(Toast, options)
 
-import TaskList from './components/task/List'
 Vue.component('task-list', TaskList)
-
-import TaskForm from './components/task/Form'
 Vue.component('task-form', TaskForm)
 
 createInertiaApp({
@@ -45,22 +42,9 @@ InertiaProgress.init({
     color: 'red',
     showSpinner: true
 })
+
+
 /*
-
-import LoginForm from './components/auth/LoginForm'
-Vue.component('login-form', LoginForm)
-
-import RegisterForm from './components/auth/RegisterForm'
-Vue.component('register-form', RegisterForm)
-
 import Tasks from './components/task/Index'
 Vue.component('tasks', Tasks)
-
-
-
-
-const app = new Vue({
-    el: '#app'
-})
-
 */
