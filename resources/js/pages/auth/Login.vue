@@ -2,7 +2,7 @@
   <b-container>
     <b-row class="mt-5">
         <b-col>
-            <h3 class="text-center text-primary">Welcome to To-Do App</h3>
+            <h3 class="text-center text-primary">To Do App</h3>
         </b-col>
     </b-row>
     <b-row class="mt-3">
