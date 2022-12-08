@@ -17,23 +17,16 @@
 </template>
 
 <script>
-import { logoutUser } from '../../auth'
-
 export default {
     props: ['user'],
+    data() {
+        return {
+            form: this.$inertia.form({})   
+        }
+    },
     methods: {
         async logout() {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                logoutUser()
-                    .then((resp) => {
-                        window.location = '/'
-                    })
-                    .catch((err) => {
-                        this.$toast.error(err.response.data.message, {
-                            timeout: 5000
-                        })
-                    })
-            })
+            this.form.post('/logout')
         }
     }
 

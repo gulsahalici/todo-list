@@ -31,7 +31,7 @@ import TaskForm from './components/task/Form'
 Vue.component('task-form', TaskForm)
 
 createInertiaApp({
-    resolve: name => require(`./Pages/${name}`),
+    resolve: name => require(`./pages/${name}`),
     setup({ el, App, props, plugin }) {
       Vue.use(plugin)
   

@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
     Route::delete('/tasks/{task}', App\Http\Controllers\Api\Task\DeleteController::class);
 
-    Route::post('/auth/logout', App\Http\Controllers\Api\Auth\LogoutController::class)->name('logout');
+    Route::post('/auth/logout', App\Http\Controllers\Api\Auth\LogoutController::class)->name('logoutx');
 });
 
 

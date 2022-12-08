@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        return Inertia::render('Home', [
+        return Inertia::render('dashboard/Index', [
             'user' => $user
         ]);
     }
