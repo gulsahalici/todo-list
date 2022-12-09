@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Task;
+namespace App\Http\Controllers\Web\Task;
 
-use App\Business\TaskManager;
 use App\Http\Controllers\Controller;
+use App\Business\TaskManager;
 use App\Http\Requests\Task\IndexRequest as TaskIndexRequest;
 use App\Http\Resources\TaskResource;
 use App\Traits\HasPagination;
+use Inertia\Inertia;
 
 class IndexController extends Controller
 {
@@ -21,7 +22,7 @@ class IndexController extends Controller
     {
         $tasks = $taskManager->getList($request->validated());
         
-        return response()->json([ 
+        return Inertia::render('dashboard/Index', [
             'tasks' => TaskResource::collection($tasks),
             'pagination' => $this->paginate($tasks)
         ]);

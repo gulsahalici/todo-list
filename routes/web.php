@@ -24,5 +24,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/', App\Http\Controllers\Web\DashboardController::class)->name('dashboard');
 
+    Route::get('/tasks', App\Http\Controllers\Web\Task\IndexController::class)->name('tasks');
+
     Route::post('/logout', App\Http\Controllers\Web\Auth\Logout\DestroyController::class)->name('logout');
 });

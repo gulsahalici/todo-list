@@ -14,7 +14,7 @@
           </b-modal>
         </b-col>
       </b-row>
-      <task-list class="my-4" :users="users" :updated="listKey" @editTask="editTask"></task-list>
+      <task-list class="my-4" :users="users" :tasks="tasks.data" :pagination="pagination" :updated="listKey" @editTask="editTask"></task-list>
     </b-container>
   </template>
   
@@ -22,7 +22,7 @@
   import layout from '../../components/layouts/Default.vue'
   
   export default {
-    props: ['user', 'userList'],
+    props: ['user', 'userList', 'tasks', 'pagination'],
     components: {
       layout
     },

@@ -15,7 +15,7 @@
             </b-form-group>
         </b-col>
         <b-col>
-            <b-icon icon="search" class="cursor mr-3 mt-2" @click="filterTasks"></b-icon>
+            <b-icon icon="search" class="cursor mr-3 mt-2" @click="goPage(1)"></b-icon>
             <b-icon icon="trash-fill" variant="danger" class="cursor" @click="filter = {}, goPage(1)"></b-icon>
         </b-col>
     </b-row>
@@ -77,15 +77,14 @@
 </template>
 
 <script>
-import { fetchTasks, deleteTask, updateTask } from '../../task'
+import { deleteTask, updateTask } from '../../task'
+import pickBy from 'lodash/pickBy'
 
 export default {
-    props: ['updated', 'users'],
+    props: ['updated', 'users', 'tasks', 'pagination'],
     data() {
-        return{
-            tasks: [],
+        return {
             editingTask: {},
-            pagination: {},
             status: [
                 {
                     text: 'Done',
@@ -145,31 +144,13 @@ export default {
             })
         },
         goPage(page) {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                fetchTasks({
+            const params = {
                     page: page,
                     filter: this.filter
-                    })
-                    .then((resp) => {
-                        this.tasks = resp?.data?.tasks
-                        this.pagination = resp?.data?.pagination
-                    })
-            })
-        },
-        filterTasks() {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                fetchTasks({
-                    page: 1,
-                    filter: this.filter
-                }).then((resp) => {
-                    this.tasks = resp?.data?.tasks
-                    this.pagination = resp?.data?.pagination
-                })
-            })
+                }
+
+            this.$inertia.get('/', pickBy(params), { preserveState: true })
         }
-    },
-    mounted() {
-        this.goPage(1)
     }
 }
 </script>
