@@ -112,20 +112,13 @@ export default {
             this.editingTask = {}
         },
         removeTask() {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                deleteTask(this.editingTask).then((resp) => {
-                    this.editingTask = {}
-                    this.hideModal()
-                    this.$toast.success(resp.data.message, {
-                        timeout: 5000
-                    })
-                    this.goPage(this.pagination.current_page)
-                })
-                .catch((err) => {
-                    this.$toast.error(err.response.data.message, {
-                        timeout: 5000
-                    })
-                })
+            this.$inertia.delete('/tasks/'+this.editingTask.id, { preserveState: true })
+
+            this.editingTask = {}
+            this.hideModal()
+
+            this.$toast.success('Task deleted', {
+                timeout: 5000
             })
         },
         changeTaskStatus(val) {
@@ -145,11 +138,11 @@ export default {
         },
         goPage(page) {
             const params = {
-                    page: page,
-                    filter: this.filter
-                }
+                page: page,
+                filter: this.filter
+            }
 
-            this.$inertia.get('/', pickBy(params), { preserveState: true })
+            this.$inertia.get('/tasks', pickBy(params), { preserveState: true })
         }
     }
 }

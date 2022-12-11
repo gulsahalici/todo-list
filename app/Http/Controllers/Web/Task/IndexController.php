@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Web\Task;
 
 use App\Http\Controllers\Controller;
-use App\Business\TaskManager;
 use App\Http\Requests\Task\IndexRequest as TaskIndexRequest;
+use Inertia\Inertia;
+use App\Business\UserManager;
+use App\Business\TaskManager;
 use App\Http\Resources\TaskResource;
 use App\Traits\HasPagination;
-use Inertia\Inertia;
 
 class IndexController extends Controller
 {
@@ -18,11 +19,15 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(TaskIndexRequest $request, TaskManager $taskManager)
+    public function __invoke(TaskIndexRequest $request, UserManager $userManager, TaskManager $taskManager)
     {
-        $tasks = $taskManager->getList($request->validated());
+        $user = $request->user();
+        $userList = $userManager->getList();
+        $tasks = $taskManager->getList($request['filter'] ?? []);
         
-        return Inertia::render('dashboard/Index', [
+        return Inertia::render('task/Index', [
+            'user' => $user,
+            'userList' => $userList,
             'tasks' => TaskResource::collection($tasks),
             'pagination' => $this->paginate($tasks)
         ]);

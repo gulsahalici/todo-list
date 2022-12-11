@@ -25,6 +25,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/', App\Http\Controllers\Web\DashboardController::class)->name('dashboard');
 
     Route::get('/tasks', App\Http\Controllers\Web\Task\IndexController::class)->name('tasks');
+    Route::post('/tasks', App\Http\Controllers\Web\Task\StoreController::class)->name('task.store');
+    Route::put('/tasks/{task}', App\Http\Controllers\Web\Task\UpdateController::class)->name('task.update');
+    Route::delete('/tasks/{task}', App\Http\Controllers\Web\Task\DeleteController::class)->name('task.delete');
 
     Route::post('/logout', App\Http\Controllers\Web\Auth\Logout\DestroyController::class)->name('logout');
 });

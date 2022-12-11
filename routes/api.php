@@ -19,7 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/tasks', App\Http\Controllers\Api\Task\StoreController::class);
-    Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
+    //Route::put('/tasks/{task}', App\Http\Controllers\Api\Task\UpdateController::class);
     Route::delete('/tasks/{task}', App\Http\Controllers\Api\Task\DeleteController::class);
 });

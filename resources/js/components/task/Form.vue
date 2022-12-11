@@ -28,6 +28,7 @@
 
 <script>
 import { storeTask, updateTask } from '../../task'
+import pickBy from 'lodash/pickBy'
 
 export default {
     props: ['task', 'users'],
@@ -39,40 +40,12 @@ export default {
     },
     methods: {
         createTask() {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                if(this.form.id) {
-                    updateTask(this.form)
-                        .then((resp) => {
-                            this.$emit('updated')   
-                            this.form = {}
-                            
-                            this.$toast.success(resp.data.message, {
-                                timeout: 5000
-                            })
-                        })
-                        .catch((err) => {
-                            this.$toast.error(err.response.data.message, {
-                                timeout: 5000
-                            })
-                        })
-                }
-                else {
-                    storeTask(this.form)
-                        .then((resp) => {
-                            this.$emit('updated')   
-                            this.form = {}
-
-                            this.$toast.success(resp.data.message, {
-                                timeout: 5000
-                            })
-                        })
-                        .catch((err) => {
-                            this.$toast.error(err.response.data.message, {
-                                timeout: 5000
-                            })
-                        })
-                }
-            })
+            if(this.form.id) {
+                this.$emit('updateTask', this.form)  
+            }
+            else {
+                this.$emit('createTask', this.form)  
+            }
         }
     },
     mounted() {
@@ -82,7 +55,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>
