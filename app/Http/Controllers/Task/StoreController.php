@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Task;
+namespace App\Http\Controllers\Task;
 
-use App\Business\TaskManager;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\StoreRequest as TaskStoreRequest;
-use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
+use App\Business\TaskManager;
 
 class StoreController extends Controller
 {
@@ -17,11 +17,8 @@ class StoreController extends Controller
      */
     public function __invoke(TaskStoreRequest $request, TaskManager $taskManager)
     {
-        $task = $taskManager->create($request->validated());
+        $taskManager->create($request->validated());
 
-        return response()->json([         
-            'message' => 'Task created.',
-            'task' => new TaskResource($task)
-        ]);
+        return Redirect::route('task.store');
     }
 }

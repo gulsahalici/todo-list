@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Web\Auth\Login;
+namespace App\Http\Controllers\Auth\Logout;
 
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CreateController extends Controller
+class DestroyController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,6 +17,9 @@ class CreateController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('auth/Login');
+        auth()->user()->tokens()->delete();
+        $request->session()->invalidate();
+
+        return Redirect::route('login');    
     }
 }

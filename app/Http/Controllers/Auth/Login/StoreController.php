@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web\Auth\Login;
+namespace App\Http\Controllers\Auth\Login;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Inertia\Inertia;
-use App\Business\AuthManager;
 use Illuminate\Support\Facades\Redirect;
+use App\Business\AuthManager;
+use Inertia\Inertia;
 
 
 class StoreController extends Controller

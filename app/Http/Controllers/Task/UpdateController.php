@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Task;
+namespace App\Http\Controllers\Task;
 
-use App\Business\TaskManager;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\UpdateRequest as TaskUpdateRequest;
-use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
+use App\Business\TaskManager;
 use App\Models\Task;
 
 class UpdateController extends Controller
@@ -18,11 +18,8 @@ class UpdateController extends Controller
      */
     public function __invoke(TaskUpdateRequest $request, Task $task, TaskManager $taskManager)
     {
-        $task = $taskManager->update($task, $request->validated());
+        $taskManager->update($task, $request->validated());
 
-        return response()->json([         
-            'message' => 'Task updated.',
-            'task' => new TaskResource($task)
-        ]);
+        return Redirect::back();
     }
 }

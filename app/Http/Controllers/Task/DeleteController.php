@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Task;
+namespace App\Http\Controllers\Task;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
 use App\Business\TaskManager;
 use App\Models\Task;
 

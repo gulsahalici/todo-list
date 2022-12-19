@@ -32,13 +32,15 @@ class TaskManager
         return $task;
     }
 
-    public function update(Task $task, array $data) {
+    public function update(Task $task, array $data) 
+    {
         $task->update($data);
 
         return $task;
     }   
 
-    public function delete(Task $task) {
+    public function delete(Task $task) 
+    {
         return $task->delete();
     }
 

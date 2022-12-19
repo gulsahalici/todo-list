@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Auth\Register;
+namespace App\Http\Controllers\Auth\Register;
 
 use App\Business\AuthManager;
 use App\Http\Controllers\Controller;

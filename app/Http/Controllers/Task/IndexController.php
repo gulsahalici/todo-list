@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Web\Task;
+namespace App\Http\Controllers\Task;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\IndexRequest as TaskIndexRequest;
-use Inertia\Inertia;
-use App\Business\UserManager;
-use App\Business\TaskManager;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\TaskResource;
 use App\Traits\HasPagination;
+use App\Business\UserManager;
+use App\Business\TaskManager;
+use Inertia\Inertia;
 
 class IndexController extends Controller
 {
