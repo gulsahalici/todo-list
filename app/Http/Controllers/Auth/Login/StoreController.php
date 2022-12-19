@@ -22,7 +22,9 @@ class StoreController extends Controller
         $user = $authManager->login($request->validated());
 
         if(!$user) {
-            return Inertia::render('auth/Login');
+            return Inertia::render('auth/Login', [
+                'message' => 'Email or password incorrect!'
+            ]);
         }
 
         return Redirect::route('login.store')->with('token', $user->createToken("API TOKEN")->plainTextToken);

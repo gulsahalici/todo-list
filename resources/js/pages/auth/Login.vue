@@ -7,6 +7,7 @@
     </b-row>
     <b-row class="mt-3">
         <b-col cols="6" offset="3">
+            <b-alert v-if="message" show variant="danger">{{message}}</b-alert>
             <b-card class="mt-3" header="Login">
                 <b-form @submit.stop.prevent="login">
                     <b-form-group id="email-group" label="Email" label-for="email">
@@ -34,8 +35,8 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue'
-
 export default {
+    props: ['message'],
     components: {
         Link
     },
@@ -48,14 +49,9 @@ export default {
         }
     },
     methods: {
-        async login() {
+        login() {
             this.form.post('/login')
         }
     }
-
 }
 </script>
-
-<style>
-
-</style>

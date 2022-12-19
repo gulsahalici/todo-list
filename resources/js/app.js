@@ -14,6 +14,7 @@ import "vue-toastification/dist/index.css"
 
 import TaskList from './components/task/List'
 import TaskForm from './components/task/Form'
+import Layout from './components/layouts/Default'
 
 const options = {
     // You can set your default options here
@@ -26,6 +27,7 @@ Vue.use(Toast, options)
 
 Vue.component('task-list', TaskList)
 Vue.component('task-form', TaskForm)
+Vue.component('layout', Layout)
 
 createInertiaApp({
     resolve: name => require(`./pages/${name}`),

@@ -18,12 +18,12 @@ class StoreController extends Controller
     public function __invoke(RegisterRequest $request, AuthManager $authManager)
     {
         $user = $authManager->register($request->validated());
-        
-        $user = $authManager->login($request->validated());
 
         if(!$user) {
             return Inertia::render('auth/Register');
         }
+        
+        $user = $authManager->login($request->validated());
 
         return Redirect::route('register.store')->with('token', $user->createToken("API TOKEN")->plainTextToken);
     }

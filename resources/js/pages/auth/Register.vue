@@ -7,6 +7,11 @@
     </b-row>
     <b-row class="mt-3">
         <b-col cols="6" offset="3">
+            <b-alert v-if="Object.keys(errors).length" show variant="danger">
+                <p v-for="err in errors">
+                    {{err}}
+                </p>
+            </b-alert>
             <b-card class="mt-3" header="Register">
                 <b-form @submit.stop.prevent="register">
                     <b-form-group id="name-group" label="Name" label-for="name">
@@ -38,8 +43,8 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue'
-
 export default {
+    props: ['message', 'errors'],
     components: {
         Link
     },
@@ -57,10 +62,5 @@ export default {
             this.form.post('/register')
         }
     }
-
 }
 </script>
-
-<style>
-
-</style>
