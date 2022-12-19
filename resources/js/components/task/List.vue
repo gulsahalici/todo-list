@@ -23,7 +23,7 @@
         <b-col class="border p-5 rounded" v-if="tasks && tasks.length > 0">
             <b-row v-for="task in tasks" :key="task.id" class="py-3 border-bottom">
                 <b-col>
-                    <b-form-checkbox :id="'task_' + task.id" v-model="task.status" :value="1" :unchecked-value="0" @change="changeTaskStatus(), editingTask = task">
+                    <b-form-checkbox :id="'task_' + task.id" v-model="task.status" :value="1" :unchecked-value="0" @change="changeStatus(task), editingTask = task">
                         <del v-if="task.status" class="text-secondary">
                             {{task.description}}
                         </del>
@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import { deleteTask, updateTask } from '../../task'
 import pickBy from 'lodash/pickBy'
 
 export default {
@@ -112,7 +111,7 @@ export default {
             this.editingTask = {}
         },
         removeTask() {
-            this.$inertia.delete('/tasks/'+this.editingTask.id, { preserveState: true })
+            this.$inertia.delete('/tasks/' + this.editingTask.id, { preserveState: true })
 
             this.editingTask = {}
             this.hideModal()
@@ -121,20 +120,9 @@ export default {
                 timeout: 5000
             })
         },
-        changeTaskStatus(val) {
-            axios.get('/sanctum/csrf-cookie').then(response => { 
-                updateTask(this.editingTask)
-                    .then((resp) => {
-                        this.$toast.success(resp.data.message, {
-                            timeout: 5000
-                        })
-                    })
-                    .catch((err) => {
-                        this.$toast.error(err.response.data.message, {
-                            timeout: 5000
-                        })
-                    })
-            })
+        changeStatus(task) {
+            this.$inertia.put('/tasks/' + task.id, task, { preserveState: true })
+            this.$emit('update', 'Task updated.')  
         },
         goPage(page) {
             const params = {

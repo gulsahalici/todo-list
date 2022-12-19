@@ -2,7 +2,7 @@
     <b-container>
         <b-row>
             <b-col>
-                <b-form @submit.stop.prevent="createTask">
+                <b-form @submit.stop.prevent="submit">
                     <b-form-group id="description" label="Description" label-for="description">
                         <b-form-textarea id="description" v-model="form.description" placeholder="Enter description" required rows="3" max-rows="10"></b-form-textarea>
                     </b-form-group>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { storeTask, updateTask } from '../../task'
 import pickBy from 'lodash/pickBy'
 
 export default {
@@ -39,18 +38,20 @@ export default {
         }
     },
     methods: {
-        createTask() {
+        submit() {
             if(this.form.id) {
-                this.$emit('updateTask', this.form)  
+                this.$inertia.put('/tasks/' + this.form.id, pickBy(this.form), { preserveState: true })
+                this.$emit('update', 'Task updated.')  
             }
             else {
-                this.$emit('createTask', this.form)  
+                this.$inertia.post('/tasks', pickBy(this.form), { preserveState: true })
+                this.$emit('update', 'Task created.')  
             }
         }
     },
     mounted() {
         if(this.task) {
-            this.form = JSON.parse(JSON.stringify(this.task)) 
+            this.form = _.clone(this.task)
         }
     }
 }
