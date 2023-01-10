@@ -30,7 +30,7 @@ Vue.component('task-form', TaskForm)
 Vue.component('layout', Layout)
 
 createInertiaApp({
-    resolve: name => require(`./pages/${name}`),
+    resolve: name => require(`./Pages/${name}`).default,
     setup({ el, App, props, plugin }) {
       Vue.use(plugin)
   
